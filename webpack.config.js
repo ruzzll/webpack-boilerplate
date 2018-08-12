@@ -3,9 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const sourcePath = path.join(__dirname, 'src');
+
 const config = {
     entry: {
-        app: path.join(__dirname, 'src/app.js'),
+        app: path.resolve(sourcePath, 'app.js'),
     },
     devtool: 'source-map',
     plugins: [
@@ -19,6 +21,9 @@ const config = {
             chunkFilename: "[id].css"
         })
     ],
+    resolve: {
+        modules: [path.resolve(sourcePath, 'app'), path.resolve(__dirname, 'node_modules')],
+    },
     module: {
         rules: [{
             test: /\.js$/,
